@@ -94,10 +94,16 @@ tmall_sale_summary['predicted_net_sales'] = tmall_sale_summary['average_net_sale
 tmall_sale_summary['sku_type'] = 'tmall'
 
 
+# concat jd and tmall
+sale_summary = pd.concat([sale_summary, tmall_sale_summary])
+sale_summary.index.name = 'item_sku_id'
 
 
-
-
+# save to file
+temp_path = '/data0/data_dir/lm/ai_slct_algorithm/temp/2017-02-28/1602'
+if not os.path.exists(temp_path):
+    os.makedirs(temp_path)
+sale_summary.to_csv(temp_path+'/sale_summary', sep='\t', index=True, header=True, quoteing=None, encoding='utf-8')
 
 
 
